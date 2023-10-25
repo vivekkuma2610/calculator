@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .btn-group {
+            width: 100%;
+        }
+    </style>
+    <title>Calculator</title>
+</head>
+
+<body>
+    <script src="https://app.zenclass.in/sheets/v1/js/zen/suite/bundle.js"></script>
+    <div class="container">
+        <h1 id="title">Calculator</h1>
+        <p id="description">Use numbers 0-1 from the keyboard and buttons for arithmetic operations. Only numbers and basic operators (+, -, *, /, %) are allowed.</p>
+        <input type="text" class="form-control mb-2" id="result" readonly>
+        <div class="calculator">
+            <div class="btn-group">
+                <button class="btn btn-secondary" id="1">1</button>
+                <button class="btn btn-secondary" id="2">2</button>
+                <button class="btn btn-secondary" id="3">3</button>
+                <button class="btn btn-secondary" id="4">4</button>
+                <button class="btn btn-secondary" id="5">5</button>
+                <button class="btn btn-secondary" id="6">6</button>
+                <button class="btn btn-secondary" id="7">7</button>
+                <button class="btn btn-secondary" id="8">8</button>
+                <button class="btn btn-secondary" id="9">9</button>
+                <button class="btn btn-secondary" id="0">0</button>
+            </div>
+            <div class="btn-group mt-2">
+                <button class="btn btn-secondary" id="add">+</button>
+                <button class="btn btn-secondary" id="subtract">-</button>
+                <button class="btn btn-secondary" id="multiply">*</button>
+                <button class="btn btn-secondary" id="divide">/</button>
+                <button class="btn btn-secondary" id="modulus">%</button>
+            </div>
+            <div class="btn-group mt-2">
+                <button class="btn btn-success" id="equal">=</button>
+            </div>
+            <div class="btn-group mt-2">
+                <button class="btn btn-info" id="clear">Clear</button>
+                <button class="btn btn-info" id="memoryAdd">M+</button>
+                <button class="btn btn-info" id="memorySubtract">M-</button>
+                <button class="btn btn-info" id="memoryClear">MC</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let resultDisplay = document.getElementById('result');
+        let memory = 0;
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === '0' || event.key === '1') {
+                addToResult(event.key);
+            } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/' || event.key === '%') {
+                addToResult(event.key);
+            } else {
+                alert('Only numbers 0-1 and basic operators (+, -, *, /, %) are allowed!');
+            }
+        });
+
+        document.getElementById('1').addEventListener('click', function () {
+            addToResult('1');
+        });
+
+        document.getElementById('2').addEventListener('click', function () {
+            addToResult('2');
+        });
+        document.getElementById('3').addEventListener('click', function () {
+            addToResult('3');
+        });
+        document.getElementById('4').addEventListener('click', function () {
+            addToResult('4');
+        });
+        document.getElementById('5').addEventListener('click', function () {
+            addToResult('5');
+        });
+
+        document.getElementById('6').addEventListener('click', function () {
+            addToResult('6');
+        });
+        document.getElementById('7').addEventListener('click', function () {
+            addToResult('7');
+        });
+        document.getElementById('8').addEventListener('click', function () {
+            addToResult('8');
+        });
+        document.getElementById('9').addEventListener('click', function () {
+            addToResult('9');
+        });
+        document.getElementById('0').addEventListener('click', function () {
+            addToResult('0');
+        });
+        document.getElementById('add').addEventListener('click', function () {
+            addToResult('+');
+        });
+
+        document.getElementById('subtract').addEventListener('click', function () {
+            addToResult('-');
+        });
+
+        document.getElementById('multiply').addEventListener('click', function () {
+            addToResult('*');
+        });
+
+        document.getElementById('divide').addEventListener('click', function () {
+            addToResult('/');
+        });
+
+        document.getElementById('modulus').addEventListener('click', function () {
+            addToResult('%');
+        });
+
+        document.getElementById('equal').addEventListener('click', function () {
+            calculate();
+        });
+
+        document.getElementById('clear').addEventListener('click', function () {
+            clearResult();
+        });
+
+        document.getElementById('memoryAdd').addEventListener('click', function () {
+            addToMemory();
+        });
+
+        document.getElementById('memorySubtract').addEventListener('click', function () {
+            subtractFromMemory();
+        });
+
+        document.getElementById('memoryClear').addEventListener('click', function () {
+            clearMemory();
+        });
+
+        function addToResult(value) {
+            resultDisplay.value += value;
+        }
+
+        function calculate() {
+            try {
+                resultDisplay.value = eval(resultDisplay.value);
+            } catch (error) {
+                alert('Invalid input!');
+                clearResult();
+            }
+        }
+
+        function clearResult() {
+            resultDisplay.value = '';
+        }
+
+        function addToMemory() {
+            memory += parseFloat(resultDisplay.value) || 0;
+            resultDisplay.value = '';
+        }
+
+        function subtractFromMemory() {
+            memory -= parseFloat(resultDisplay.value) || 0;
+            resultDisplay.value = '';
+        }
+
+        function clearMemory() {
+            memory = 0;
+            resultDisplay.value = '';
+        }
+    </script>
+</body>
+
+</html>
